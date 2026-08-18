@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy 46th Birthday, Mom! 🎉</title>
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: radial-gradient(circle at top, #ffb3c6, #590d22);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+  }
+
+  #quizBox {
+    background: #1b1b2f;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+  }
+
+  .question {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .option {
+    background: #ff758f;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .option:hover {
+    background: #ff4d6d;
+  }
+
+  #nextBtn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #ffc2d1;
+    border: none;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #590d22;
+    display: none;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  footer {
+    margin-top: 30px;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<h1>Happy 46th Birthday, Mom! 🎉</h1>
+<p>Answer the trivia questions to unlock your birthday surprise!</p>
+
+<div id="quizBox">
+  <div id="questionContainer"></div>
+  <button id="nextBtn">Next</button>
+  <div id="result"></div>
+</div>
+
+<footer>Made with love by Sayan 💖</footer>
+
+<script>
+const questions = [
+  {
+    q: "What is Sayan’s favorite way to relax?",
+    options: ["Video Games", "Watching movies", "Cooking", "Listening to music"],
+    answer: 0
+  },
+  {
+    q: "Which dessert does Sayan love the most?",
+    options: ["Chocolate cake", "Milk Shake", "Brownies", "Cheesecake"],
+    answer: 1
+  },
+  {
+    q: "What is Sayan’s dream vacation spot?",
+    options: ["Hawaii", "Italy", "Japan", "Greece"],
+    answer: 2
+  },
+  {
+    q: "What is Sayan’s favorite color?",
+    options: ["Pink", "Blue", "Purple", "Cyan"],
+    answer: 3
+  }
+];
+
+let current = 0;
+let score = 0;
+
+const questionContainer = document.getElementById("questionContainer");
+const nextBtn = document.getElementById("nextBtn");
+const resultDiv = document.getElementById("result");
+
+function loadQuestion() {
+  const q = questions[current];
+  questionContainer.innerHTML = `
+    <div class="question">${q.q}</div>
+    ${q.options.map((opt, i) => `
+      <div class="option" onclick="selectOption(${i})">${opt}</div>
+    `).join("")}
+  `;
+}
+
+function selectOption(i) {
+  const correct = questions[current].answer;
+  if (i === correct) score++;
+  nextBtn.style.display = "block";
+}
+
+nextBtn.addEventListener("click", () => {
+  current++;
+  nextBtn.style.display = "none";
+
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    showResult();
+  }
+});
+
+function showResult() {
+  questionContainer.innerHTML = "";
+
+  if (score === questions.length) {
+    resultDiv.innerHTML = `
+      You got ALL ${score} questions right! 🎉<br><br>
+      <a href="https://sayanregmi-cmyk.github.io/birthday-breakout-gamesss/"
+         target="_blank"
+         style="color:#ffb3c6; font-weight:bold;">
+         Click here for your surprise website 🎁
+      </a>
+    `;
+  } else {
+    resultDiv.innerHTML = `
+      You scored ${score} out of ${questions.length}.<br><br>
+      Try again to unlock the special birthday message! ✨
+    `;
+  }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
